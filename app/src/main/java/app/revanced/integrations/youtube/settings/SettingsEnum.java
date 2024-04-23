@@ -85,7 +85,7 @@ public enum SettingsEnum {
 
     // Comments
     HIDE_CHANNEL_GUIDELINES("revanced_hide_channel_guidelines", BOOLEAN, TRUE),
-    HIDE_COMMENTS_BY_MEMBERS("revanced_hide_comments_by_members", BOOLEAN, TRUE),
+    HIDE_COMMENTS_BY_MEMBERS("revanced_hide_comments_by_members", BOOLEAN, FALSE),
     HIDE_COMMENTS_SECTION("revanced_hide_comments_section", BOOLEAN, FALSE),
     HIDE_COMMENTS_THANKS_BUTTON("revanced_hide_comments_thanks_button", BOOLEAN, TRUE),
     HIDE_CREATE_SHORTS_BUTTON("revanced_hide_create_shorts_button", BOOLEAN, TRUE),
@@ -113,7 +113,7 @@ public enum SettingsEnum {
     HIDE_PLAYER_FLYOUT_PANEL_MORE("revanced_hide_player_flyout_panel_more_info", BOOLEAN, TRUE),
     HIDE_PLAYER_FLYOUT_PANEL_PLAYBACK_SPEED("revanced_hide_player_flyout_panel_playback_speed", BOOLEAN, FALSE),
     HIDE_PLAYER_FLYOUT_PANEL_QUALITY_FOOTER("revanced_hide_player_flyout_panel_quality_footer", BOOLEAN, TRUE, true),
-    HIDE_PLAYER_FLYOUT_PANEL_REPORT("revanced_hide_player_flyout_panel_report", BOOLEAN, FALSE),
+    HIDE_PLAYER_FLYOUT_PANEL_REPORT("revanced_hide_player_flyout_panel_report", BOOLEAN, TRUE),
 
     // Player Flyout Panel (Additional settings)
     HIDE_PLAYER_FLYOUT_PANEL_ADDITIONAL_SETTINGS("revanced_hide_player_flyout_panel_additional_settings", BOOLEAN, FALSE),
@@ -128,7 +128,7 @@ public enum SettingsEnum {
 
 
     // Fullscreen
-    DISABLE_AMBIENT_MODE_IN_FULLSCREEN("revanced_disable_ambient_mode_in_fullscreen", BOOLEAN, TRUE, true),
+    DISABLE_AMBIENT_MODE_IN_FULLSCREEN("revanced_disable_ambient_mode_in_fullscreen", BOOLEAN, FALSE, true),
     HIDE_AUTOPLAY_PREVIEW("revanced_hide_autoplay_preview", BOOLEAN, FALSE, true),
     HIDE_END_SCREEN_OVERLAY("revanced_hide_end_screen_overlay", BOOLEAN, TRUE, true),
     HIDE_FULLSCREEN_PANELS("revanced_hide_fullscreen_panels", BOOLEAN, FALSE, true),
@@ -271,7 +271,7 @@ public enum SettingsEnum {
     HIDE_CREATE_BUTTON("revanced_hide_create_button", BOOLEAN, TRUE, true),
     HIDE_HOME_BUTTON("revanced_hide_home_button", BOOLEAN, FALSE, true),
     HIDE_LIBRARY_BUTTON("revanced_hide_library_button", BOOLEAN, FALSE, true),
-    HIDE_NAVIGATION_LABEL("revanced_hide_navigation_label", BOOLEAN, TRUE, true),
+    HIDE_NAVIGATION_LABEL("revanced_hide_navigation_label", BOOLEAN, FALSE, true),
     HIDE_NOTIFICATIONS_BUTTON("revanced_hide_notifications_button", BOOLEAN, FALSE, true),
     HIDE_SHORTS_BUTTON("revanced_hide_shorts_button", BOOLEAN, TRUE, true),
     HIDE_SUBSCRIPTIONS_BUTTON("revanced_hide_subscriptions_button", BOOLEAN, FALSE, true),
@@ -285,11 +285,11 @@ public enum SettingsEnum {
     ALWAYS_REPEAT("revanced_always_repeat", BOOLEAN, FALSE),
     ALWAYS_REPEAT_PAUSE("revanced_always_repeat_pause", BOOLEAN, FALSE),
     OVERLAY_BUTTON_ALWAYS_REPEAT("revanced_overlay_button_always_repeat", BOOLEAN, FALSE),
-    OVERLAY_BUTTON_COPY_VIDEO_URL("revanced_overlay_button_copy_video_url", BOOLEAN, TRUE),
-    OVERLAY_BUTTON_COPY_VIDEO_URL_TIMESTAMP("revanced_overlay_button_copy_video_url_timestamp", BOOLEAN, FALSE),
-    OVERLAY_BUTTON_EXTERNAL_DOWNLOADER("revanced_overlay_button_external_downloader", BOOLEAN, FALSE),
+    OVERLAY_BUTTON_COPY_VIDEO_URL("revanced_overlay_button_copy_video_url", BOOLEAN, FALSE),
+    OVERLAY_BUTTON_COPY_VIDEO_URL_TIMESTAMP("revanced_overlay_button_copy_video_url_timestamp", BOOLEAN, TRUE),
+    OVERLAY_BUTTON_EXTERNAL_DOWNLOADER("revanced_overlay_button_external_downloader", BOOLEAN, TRUE),
     OVERLAY_BUTTON_TIME_ORDERED_PLAYLIST("revanced_overlay_button_time_ordered_playlist", BOOLEAN, FALSE),
-    OVERLAY_BUTTON_SPEED_DIALOG("revanced_overlay_button_speed_dialog", BOOLEAN, TRUE),
+    OVERLAY_BUTTON_SPEED_DIALOG("revanced_overlay_button_speed_dialog", BOOLEAN, FALSE),
     EXTERNAL_DOWNLOADER_PACKAGE_NAME("revanced_external_downloader_package_name", STRING, "com.deniscerri.ytdl", true, parents(OVERLAY_BUTTON_EXTERNAL_DOWNLOADER)),
     OVERLAY_BUTTON_WHITELIST("revanced_overlay_button_whitelisting", BOOLEAN, FALSE),
 
@@ -302,8 +302,8 @@ public enum SettingsEnum {
 
 
     // Player
-    CUSTOM_PLAYER_OVERLAY_OPACITY("revanced_custom_player_overlay_opacity", INTEGER, 100, true),
-    DISABLE_SPEED_OVERLAY("revanced_disable_speed_overlay", BOOLEAN, TRUE, true),
+    CUSTOM_PLAYER_OVERLAY_OPACITY("revanced_custom_player_overlay_opacity", INTEGER, 0, true),
+    DISABLE_SPEED_OVERLAY("revanced_disable_speed_overlay", BOOLEAN, FALSE, true),
     HIDE_AUDIO_TRACK_BUTTON("revanced_hide_audio_track_button", BOOLEAN, TRUE),
     HIDE_AUTOPLAY_BUTTON("revanced_hide_autoplay_button", BOOLEAN, TRUE, true),
     HIDE_CAPTIONS_BUTTON("revanced_hide_captions_button", BOOLEAN, TRUE, true),
@@ -312,35 +312,33 @@ public enum SettingsEnum {
     HIDE_END_SCREEN_CARDS("revanced_hide_end_screen_cards", BOOLEAN, TRUE, true),
     HIDE_INFO_CARDS("revanced_hide_info_cards", BOOLEAN, TRUE, true),
     HIDE_KEYWORD_CONTENT("revanced_hide_keyword_content_feed", BOOLEAN, FALSE),
-    HIDE_KEYWORD_CONTENT_HOME("revanced_hide_keyword_content_home", BOOLEAN, TRUE, parents(HIDE_KEYWORD_CONTENT)),
-    HIDE_KEYWORD_CONTENT_SEARCH("revanced_hide_keyword_content_search", BOOLEAN, TRUE, parents(HIDE_KEYWORD_CONTENT)),
-    HIDE_KEYWORD_CONTENT_SUB("revanced_hide_keyword_content_sub", BOOLEAN, TRUE, parents(HIDE_KEYWORD_CONTENT)),
-    HIDE_KEYWORD_CONTENT_COMMENT("revanced_hide_keyword_content_comment", BOOLEAN, TRUE, parents(HIDE_KEYWORD_CONTENT)),
+    HIDE_KEYWORD_CONTENT_HOME("revanced_hide_keyword_content_home", BOOLEAN, FALSE, parents(HIDE_KEYWORD_CONTENT)),
+    HIDE_KEYWORD_CONTENT_SEARCH("revanced_hide_keyword_content_search", BOOLEAN, FALSE, parents(HIDE_KEYWORD_CONTENT)),
+    HIDE_KEYWORD_CONTENT_SUB("revanced_hide_keyword_content_sub", BOOLEAN, FALSE, parents(HIDE_KEYWORD_CONTENT)),
+    HIDE_KEYWORD_CONTENT_COMMENT("revanced_hide_keyword_content_comment", BOOLEAN, FALSE, parents(HIDE_KEYWORD_CONTENT)),
     HIDE_KEYWORD_CONTENT_PHRASES("revanced_hide_keyword_content_strings", STRING, "", parentsMaster(HIDE_KEYWORD_CONTENT, HIDE_KEYWORD_CONTENT_HOME, HIDE_KEYWORD_CONTENT_SEARCH, HIDE_KEYWORD_CONTENT_SUB, HIDE_KEYWORD_CONTENT_COMMENT)),
-    HIDE_PLAYER_BUTTON_BACKGROUND("revanced_hide_player_button_background", BOOLEAN, FALSE, true),
-    HIDE_PREVIOUS_NEXT_BUTTON("revanced_hide_previous_next_button", BOOLEAN, TRUE),
+    HIDE_PREVIOUS_NEXT_BUTTON("revanced_hide_previous_next_button", BOOLEAN, FALSE),
     HIDE_SEEK_MESSAGE("revanced_hide_seek_message", BOOLEAN, FALSE, true),
     HIDE_SEEK_UNDO_MESSAGE("revanced_hide_seek_undo_message", BOOLEAN, FALSE, true),
     HIDE_SUGGESTED_ACTION("revanced_hide_suggested_actions", BOOLEAN, TRUE, true),
-    HIDE_SUGGESTED_VIDEO_OVERLAY("revanced_hide_suggested_video_overlay", BOOLEAN, TRUE, true),
-
-    HIDE_YOUTUBE_MUSIC_BUTTON("revanced_hide_youtube_music_button", BOOLEAN, FALSE),
+    HIDE_SUGGESTED_VIDEO_OVERLAY("revanced_hide_suggested_video_overlay", BOOLEAN, FALSE, true),
+    HIDE_YOUTUBE_MUSIC_BUTTON("revanced_hide_youtube_music_button", BOOLEAN, TRUE),
 
     // Experimental Flags
     HIDE_FILMSTRIP_OVERLAY("revanced_hide_filmstrip_overlay", BOOLEAN, FALSE, true),
 
     // Haptic Feedback
-    DISABLE_HAPTIC_FEEDBACK_CHAPTERS("revanced_disable_haptic_feedback_chapters", BOOLEAN, TRUE),
-    DISABLE_HAPTIC_FEEDBACK_SCRUBBING("revanced_disable_haptic_feedback_scrubbing", BOOLEAN, TRUE),
-    DISABLE_HAPTIC_FEEDBACK_SEEK("revanced_disable_haptic_feedback_seek", BOOLEAN, TRUE),
-    DISABLE_HAPTIC_FEEDBACK_SEEK_UNDO("revanced_disable_haptic_feedback_seek_undo", BOOLEAN, TRUE),
-    DISABLE_HAPTIC_FEEDBACK_ZOOM("revanced_disable_haptic_feedback_zoom", BOOLEAN, TRUE),
+    DISABLE_HAPTIC_FEEDBACK_CHAPTERS("revanced_disable_haptic_feedback_chapters", BOOLEAN, FALSE),
+    DISABLE_HAPTIC_FEEDBACK_SCRUBBING("revanced_disable_haptic_feedback_scrubbing", BOOLEAN, FALSE),
+    DISABLE_HAPTIC_FEEDBACK_SEEK("revanced_disable_haptic_feedback_seek", BOOLEAN, FALSE),
+    DISABLE_HAPTIC_FEEDBACK_SEEK_UNDO("revanced_disable_haptic_feedback_seek_undo", BOOLEAN, FALSE),
+    DISABLE_HAPTIC_FEEDBACK_ZOOM("revanced_disable_haptic_feedback_zoom", BOOLEAN, FALSE),
 
 
     // Seekbar
     APPEND_TIME_STAMP_INFORMATION("revanced_append_time_stamp_information", BOOLEAN, TRUE),
-    APPEND_TIME_STAMP_INFORMATION_TYPE("revanced_append_time_stamp_information_type", BOOLEAN, FALSE),
-    ENABLE_CUSTOM_SEEKBAR_COLOR("revanced_enable_custom_seekbar_color", BOOLEAN, TRUE, true),
+    APPEND_TIME_STAMP_INFORMATION_TYPE("revanced_append_time_stamp_information_type", BOOLEAN, TRUE),
+    ENABLE_CUSTOM_SEEKBAR_COLOR("revanced_enable_custom_seekbar_color", BOOLEAN, FALSE, true),
     ENABLE_CUSTOM_SEEKBAR_COLOR_VALUE("revanced_custom_seekbar_color_value", STRING, "#ffff0000", true,
             parents(ENABLE_CUSTOM_SEEKBAR_COLOR)),
     ENABLE_SEEKBAR_TAPPING("revanced_enable_seekbar_tapping", BOOLEAN, TRUE),
@@ -367,7 +365,7 @@ public enum SettingsEnum {
     HIDE_SHORTS_LIVE_CHAT("revanced_hide_shorts_live_chat", BOOLEAN, FALSE),
     HIDE_SHORTS_LIVE_HEADER("revanced_hide_shorts_live_header", BOOLEAN, FALSE),
     HIDE_SHORTS_PLAYER_THANKS_BUTTON("revanced_hide_shorts_player_thanks_button", BOOLEAN, TRUE),
-    HIDE_SHORTS_PLAYER_PIVOT_BUTTON("revanced_hide_shorts_player_pivot_button", BOOLEAN, FALSE),
+    HIDE_SHORTS_PLAYER_PIVOT_BUTTON("revanced_hide_shorts_player_pivot_button", BOOLEAN, TRUE),
     HIDE_SHORTS_PLAYER_VIDEO_TITLE("revanced_hide_shorts_player_video_title", BOOLEAN, FALSE),
     HIDE_SHORTS_SHOP_BUTTON("revanced_hide_shorts_player_shop_button", BOOLEAN, FALSE),
     HIDE_SHORTS_LOCATION_LABEL("revanced_hide_shorts_location_label", BOOLEAN, FALSE),
@@ -378,7 +376,7 @@ public enum SettingsEnum {
     HIDE_SHORTS_TOOLBAR_CAMERA_BUTTON("revanced_hide_shorts_toolbar_camera_button", BOOLEAN, FALSE, true),
     HIDE_SHORTS_TOOLBAR_MENU_BUTTON("revanced_hide_shorts_toolbar_menu_button", BOOLEAN, FALSE, true),
     HIDE_SHORTS_TOOLBAR_SEARCH_BUTTON("revanced_hide_shorts_toolbar_search_button", BOOLEAN, FALSE, true),
-    HIDE_SHORTS_SHELF("revanced_hide_shorts_shelf", BOOLEAN, FALSE),
+    HIDE_SHORTS_SHELF("revanced_hide_shorts_shelf", BOOLEAN, TRUE),
     HIDE_SHORTS_HOME("revanced_hide_shorts_shelf_home", BOOLEAN, TRUE, parents(HIDE_SHORTS_SHELF)),
     HIDE_SHORTS_SEARCH("revanced_hide_shorts_shelf_search", BOOLEAN, TRUE, parents(HIDE_SHORTS_SHELF)),
     HIDE_SHORTS_SUBSCRIPTIONS("revanced_hide_shorts_shelf_subscriptions", BOOLEAN, TRUE, parents(HIDE_SHORTS_SHELF)),
@@ -388,9 +386,9 @@ public enum SettingsEnum {
 
 
     // Swipe controls
-    ENABLE_SWIPE_BRIGHTNESS("revanced_enable_swipe_brightness", BOOLEAN, TRUE, true),
-    ENABLE_SWIPE_VOLUME("revanced_enable_swipe_volume", BOOLEAN, TRUE, true),
-    ENABLE_SWIPE_AUTO_BRIGHTNESS("revanced_enable_swipe_auto_brightness", BOOLEAN, TRUE,
+    ENABLE_SWIPE_BRIGHTNESS("revanced_enable_swipe_brightness", BOOLEAN, FALSE, true),
+    ENABLE_SWIPE_VOLUME("revanced_enable_swipe_volume", BOOLEAN, FALSE, true),
+    ENABLE_SWIPE_AUTO_BRIGHTNESS("revanced_enable_swipe_auto_brightness", BOOLEAN, FALSE,
             parents(ENABLE_SWIPE_BRIGHTNESS)),
     ENABLE_SWIPE_PRESS_TO_ENGAGE("revanced_enable_swipe_press_to_engage", BOOLEAN, FALSE, true,
             parents(ENABLE_SWIPE_BRIGHTNESS, ENABLE_SWIPE_VOLUME)),
@@ -422,16 +420,16 @@ public enum SettingsEnum {
     DEFAULT_VIDEO_QUALITY_WIFI("revanced_default_video_quality_wifi", INTEGER, -2),
     DISABLE_HDR_VIDEO("revanced_disable_hdr_video", BOOLEAN, TRUE, true),
     DISABLE_DEFAULT_PLAYBACK_SPEED_LIVE("revanced_disable_default_playback_speed_live", BOOLEAN, TRUE),
-    ENABLE_CUSTOM_PLAYBACK_SPEED("revanced_enable_custom_playback_speed", BOOLEAN, TRUE, true),
-    CUSTOM_PLAYBACK_SPEED_PANEL_TYPE("revanced_custom_playback_speed_panel_type", BOOLEAN, TRUE,
+    ENABLE_CUSTOM_PLAYBACK_SPEED("revanced_enable_custom_playback_speed", BOOLEAN, FALSE, true),
+    CUSTOM_PLAYBACK_SPEED_PANEL_TYPE("revanced_custom_playback_speed_panel_type", BOOLEAN, FALSE,
             parents(ENABLE_CUSTOM_PLAYBACK_SPEED)),
     CUSTOM_PLAYBACK_SPEEDS("revanced_custom_playback_speeds", STRING,
             "0.25\n0.5\n0.75\n1.0\n1.25\n1.5\n1.75\n2.0\n2.25\n2.5\n3.0\n4.0\n5.0\n6.0\n7.0\n8.0", true,
             parents(ENABLE_CUSTOM_PLAYBACK_SPEED)),
-    ENABLE_SAVE_PLAYBACK_SPEED("revanced_enable_save_playback_speed", BOOLEAN, TRUE),
-    ENABLE_SAVE_VIDEO_QUALITY("revanced_enable_save_video_quality", BOOLEAN, TRUE),
+    ENABLE_SAVE_PLAYBACK_SPEED("revanced_enable_save_playback_speed", BOOLEAN, FALSE),
+    ENABLE_SAVE_VIDEO_QUALITY("revanced_enable_save_video_quality", BOOLEAN, FALSE),
     // Experimental Flags
-    ENABLE_DEFAULT_PLAYBACK_SPEED_SHORTS("revanced_enable_default_playback_speed_shorts", BOOLEAN, FALSE),
+    ENABLE_DEFAULT_PLAYBACK_SPEED_SHORTS("revanced_enable_default_playback_speed_shorts", BOOLEAN, TRUE),
     SKIP_PRELOADED_BUFFER("revanced_skip_preloaded_buffer", BOOLEAN, FALSE),
     SKIP_PRELOADED_BUFFER_TOAST("revanced_skip_preloaded_buffer_toast", BOOLEAN, TRUE),
 
@@ -453,7 +451,7 @@ public enum SettingsEnum {
      */
     SB_CREATE_NEW_SEGMENT_STEP("sb_create_new_segment_step", INTEGER, 150, SPONSOR_BLOCK, parents(SB_ENABLED)),
     SB_VOTING_BUTTON("sb_voting_button", BOOLEAN, FALSE, SPONSOR_BLOCK, parents(SB_ENABLED)),
-    SB_CREATE_NEW_SEGMENT("sb_create_new_segment", BOOLEAN, TRUE, SPONSOR_BLOCK, parents(SB_ENABLED)),
+    SB_CREATE_NEW_SEGMENT("sb_create_new_segment", BOOLEAN, FALSE, SPONSOR_BLOCK, parents(SB_ENABLED)),
     SB_COMPACT_SKIP_BUTTON("sb_compact_skip_button", BOOLEAN, FALSE, SPONSOR_BLOCK, parents(SB_ENABLED)),
     SB_AUTO_HIDE_SKIP_BUTTON("sb_auto_hide_skip_button", BOOLEAN, TRUE, SPONSOR_BLOCK, parents(SB_ENABLED)),
     SB_TOAST_ON_SKIP("sb_toast_on_skip", BOOLEAN, TRUE, SPONSOR_BLOCK, parents(SB_ENABLED)),
