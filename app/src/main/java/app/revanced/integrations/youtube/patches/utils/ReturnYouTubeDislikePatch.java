@@ -220,7 +220,7 @@ public class ReturnYouTubeDislikePatch {
      * This method is sometimes called on the main thread, but it usually is called _off_ the main thread.
      * This method can be called multiple times for the same UI element (including after dislikes was added).
      *
-     * @param original        Original char sequence was created or reused by Litho.
+     * @param original Original char sequence was created or reused by Litho.
      * @param isRollingNumber If the span is for a Rolling Number.
      * @return The original char sequence (if nothing should change), or a replacement char sequence that contains dislikes.
      */
@@ -312,10 +312,6 @@ public class ReturnYouTubeDislikePatch {
                 return original;
             }
             if (!SettingsEnum.RYD_SHORTS.getBoolean()) {
-                // Must clear the current video here, otherwise if the user opens a regular video
-                // then opens a litho short (while keeping the regular video on screen), then closes the short,
-                // the original video may show the incorrect dislike value.
-                clearData();
                 return original;
             }
 
@@ -323,7 +319,7 @@ public class ReturnYouTubeDislikePatch {
                     conversionContextString.contains("|shorts_dislike_button.eml|")
                             && isIncognito;
             final boolean fetchDislikeLiveStream =
-                    conversionContextString.contains("immersive_live_video_action_bar.eml")
+                    conversionContextString.contains("|immersive_live_video_action_bar.eml|")
                             && conversionContextString.contains("|dislike_button.eml|");
 
             if (fetchDislikeIncognito) {
