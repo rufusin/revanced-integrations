@@ -42,7 +42,7 @@ public class ReturnYouTubeDislikeApi {
 
     /**
      * Default connection and response timeout for voting and registration.
-     *
+     * <p>
      * Voting and user registration runs in the background and has has no urgency
      * so this can be a larger value.
      */
@@ -72,7 +72,7 @@ public class ReturnYouTubeDislikeApi {
     /**
      * If non zero, then the system time of when API calls can resume.
      */
-    private static volatile long timeToResumeAPICalls;
+    private static volatile long timeToResumeAPICalls; // must be volatile, since different threads read/write to this
 
     /**
      * If the last API getVotes call failed for any reason (including server requested rate limit).
@@ -405,7 +405,7 @@ public class ReturnYouTubeDislikeApi {
 
     /**
      * Must call off main thread, as this will make a network call if user is not yet registered.
-     *
+     * <p>
      * @return ReturnYouTubeDislike user ID. If user registration has never happened
      * and the network call fails, this returns NULL.
      */

@@ -43,7 +43,6 @@ import app.revanced.integrations.youtube.settings.SettingsEnum;
 import app.revanced.integrations.youtube.shared.PlayerType;
 import app.revanced.integrations.youtube.utils.LogHelper;
 import app.revanced.integrations.youtube.utils.ReVancedUtils;
-
 import app.revanced.integrations.youtube.utils.ThemeHelper;
 import app.revanced.integrations.youtube.patches.misc.SpoofAppVersionPatch;
 
@@ -200,8 +199,8 @@ public class ReturnYouTubeDislike {
                     : 0xFFD9D9D9; // light gray
         }
         return ThemeHelper.getDayNightTheme()
-                ? 0x33FFFFFF
-                : 0xFFD9D9D9;
+                ? 0x33FFFFFF  // transparent dark gray
+                : 0xFFD9D9D9; // light gray
     }
 
     public static ShapeDrawable getLeftSeparatorDrawable() {
@@ -592,7 +591,7 @@ public class ReturnYouTubeDislike {
 
     /**
      * Sets the current user vote value, and does not send the vote to the RYD API.
-     *
+     * <p>
      * Only used to set value if thumbs up/down is already selected on video load.
      */
     public void setUserVote(@NonNull Vote vote) {

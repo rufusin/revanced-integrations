@@ -57,6 +57,11 @@ public class ReturnYouTubeDislikePatch {
             isSpoofingToLessThan("18.34.00");
 
     /**
+     * Injection point.
+     * Whether to use incognito mode.
+     */
+    public static volatile boolean isIncognito;
+    /**
      * RYD data for the current video on screen.
      */
     @Nullable
@@ -162,7 +167,7 @@ public class ReturnYouTubeDislikePatch {
 
     /**
      * Injection point.  Called on main thread.
-     *
+     * <p>
      * Used when spoofing to 16.x and 17.x versions.
      */
     public static void setOldUILayoutDislikes(int buttonViewResourceId, @Nullable TextView textView) {
@@ -198,7 +203,7 @@ public class ReturnYouTubeDislikePatch {
 
     /**
      * Injection point.
-     *
+     * <p>
      * For Litho segmented buttons and Litho Shorts player.
      */
     @NonNull
@@ -208,9 +213,11 @@ public class ReturnYouTubeDislikePatch {
     }
 
     /**
+     * Injection point.
+     * <p>
      * Called when a litho text component is initially created,
      * and also when a Span is later reused again (such as scrolling off/on screen).
-     *
+     * <p>
      * This method is sometimes called on the main thread, but it usually is called _off_ the main thread.
      * This method can be called multiple times for the same UI element (including after dislikes was added).
      *
@@ -241,6 +248,10 @@ public class ReturnYouTubeDislikePatch {
                 }
                 replacement = videoData.getDislikesSpanForRegularVideo((Spanned) original,
                         true, isRollingNumber);
+
+                // When spoofing between 17.09.xx and 17.30.xx the UI is the old layout
+                // but uses litho and the dislikes is "|dislike_button.eml|".
+                // But spoofing to that range gives a broken UI layout so no point checking for that.
             } else if (!isRollingNumber && conversionContextString.contains("|shorts_dislike_button.eml|")) {
                 // Litho Shorts player.
                 if (!SettingsEnum.RYD_SHORTS.getBoolean()) {
@@ -275,6 +286,59 @@ public class ReturnYouTubeDislikePatch {
             return replacement;
         } catch (Exception ex) {
             LogHelper.printException(() -> "onLithoTextLoaded failure", ex);
+        }
+        return original;
+    }
+
+    //
+    // Litho Shorts player in the incognito mode / live stream.
+    //
+
+    /**
+     * Injection point.
+     * <p>
+     * This method is used in the following situations.
+     * <p>
+     * 1. When the dislike counts are fetched in the Incognito mode.
+     * 2. When the dislike counts are fetched in the live stream.
+     *
+     * @param original Original span that was created or reused by Litho.
+     * @return The original span (if nothing should change), or a replacement span that contains dislikes.
+     */
+    public static CharSequence onCharSequenceLoaded(@NonNull Object conversionContext,
+                                                    @NonNull CharSequence original) {
+        try {
+            String conversionContextString = conversionContext.toString();
+            if (!SettingsEnum.RYD_ENABLED.getBoolean()) {
+                return original;
+            }
+            if (!SettingsEnum.RYD_SHORTS.getBoolean()) {
+                return original;
+            }
+
+            final boolean fetchDislikeIncognito =
+                    conversionContextString.contains("|shorts_dislike_button.eml|")
+                            && isIncognito;
+            final boolean fetchDislikeLiveStream =
+                    conversionContextString.contains("|immersive_live_video_action_bar.eml|")
+                            && conversionContextString.contains("|dislike_button.eml|");
+
+            if (fetchDislikeIncognito) {
+                LogHelper.printDebug(() -> "setShortsDislikes in Incognito mode");
+            } else if (fetchDislikeLiveStream) {
+                LogHelper.printDebug(() -> "setShortsDislikes in LiveStream");
+            } else {
+                return original;
+            }
+
+            ReturnYouTubeDislike videoData = ReturnYouTubeDislike.getFetchForVideoId(VideoInformation.getVideoId());
+            videoData.setVideoIdIsShort(true);
+            lastLithoShortsVideoData = videoData;
+            lithoShortsShouldUseCurrentData = false;
+
+            return videoData.getDislikeSpanForShort(SHORTS_LOADING_SPAN);
+        } catch (Exception ex) {
+            LogHelper.printException(() -> "onCharSequenceLoaded failure", ex);
         }
         return original;
     }
@@ -436,7 +500,7 @@ public class ReturnYouTubeDislikePatch {
 
     /**
      * Dislikes TextViews used by Shorts.
-     *
+     * <p>
      * Multiple TextViews are loaded at once (for the prior and next videos to swipe to).
      * Keep track of all of them, and later pick out the correct one based on their on screen position.
      */
@@ -572,6 +636,10 @@ public class ReturnYouTubeDislikePatch {
             if (!SettingsEnum.RYD_ENABLED.getBoolean()) {
                 return;
             }
+            if (ReVancedUtils.isNetworkNotConnected()) {
+                LogHelper.printDebug(() -> "Network not connected, ignoring video");
+                return;
+            }
             if (videoId.equals(lastPrefetchedVideoId)) {
                 return;
             }
@@ -613,10 +681,17 @@ public class ReturnYouTubeDislikePatch {
      */
     public static void newVideoLoaded(@NonNull String videoId) {
         try {
-            if (!SettingsEnum.RYD_ENABLED.getBoolean()) return;
+            if (!SettingsEnum.RYD_ENABLED.getBoolean()) {
+                return;
+            }
             Objects.requireNonNull(videoId);
 
-            PlayerType currentPlayerType = PlayerType.getCurrent();
+            if (ReVancedUtils.isNetworkNotConnected()) {
+                LogHelper.printDebug(() -> "Network not connected, ignoring video");
+                return;
+            }
+
+            final PlayerType currentPlayerType = PlayerType.getCurrent();
             final boolean isNoneHiddenOrSlidingMinimized = currentPlayerType.isNoneHiddenOrSlidingMinimized();
             if (isNoneHiddenOrSlidingMinimized && !SettingsEnum.RYD_SHORTS.getBoolean()) {
                 // Must clear here, otherwise the wrong data can be used for a minimized regular video.
@@ -674,10 +749,10 @@ public class ReturnYouTubeDislikePatch {
 
     /**
      * Injection point.
-     *
+     * <p>
      * Called when the user likes or dislikes.
      *
-     * @param vote int that matches {@link Vote#value}
+     * @param vote int that matches {@link ReturnYouTubeDislike.Vote#value}
      */
     public static void sendVote(int vote) {
         try {
