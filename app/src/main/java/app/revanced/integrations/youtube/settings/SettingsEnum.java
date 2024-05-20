@@ -79,7 +79,7 @@ public enum SettingsEnum {
     HIDE_REMIX_BUTTON("revanced_hide_button_remix", BOOLEAN, TRUE),
     HIDE_REPORT_BUTTON("revanced_hide_button_report", BOOLEAN, TRUE),
     HIDE_SAVE_TO_PLAYLIST_BUTTON("revanced_hide_button_save_to_playlist", BOOLEAN, FALSE),
-    HIDE_SHARE_BUTTON("revanced_hide_button_share", BOOLEAN, TRUE),
+    HIDE_SHARE_BUTTON("revanced_hide_button_share", BOOLEAN, FALSE),
     HIDE_SHOP_BUTTON("revanced_hide_button_shop", BOOLEAN, TRUE),
     HIDE_THANKS_BUTTON("revanced_hide_button_thanks", BOOLEAN, TRUE),
 
